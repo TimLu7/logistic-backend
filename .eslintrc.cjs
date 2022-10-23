@@ -6,14 +6,17 @@ module.exports = {
   },
   extends: ['eslint:recommended', 'prettier'],
   parserOptions: {
-    ecmaVersion: 12,
+    ecmaVersion: 'latest',
     sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
   rules: {
     indent: ['error', 2, { SwitchCase: 1 }],
-    'linebreak-style': ['error', 'unix'],
+    'linebreak-style': ['error', 'windows'],
     quotes: ['error', 'double'],
     semi: ['error', 'always'],
-    'no-console': 1,
+    'no-console': 0,
   },
 };

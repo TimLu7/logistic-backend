@@ -3,29 +3,32 @@ const { MongoClient } = require('mongodb');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const path = require('path');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const router = require('./routes/routes.js');
 
-//connect to db
-async function main() {
-  dotenv.config();
+// async function main() {
+//   dotenv.config();
 
-  const uri =
-    'mongodb+srv://tianyu:1234@cluster0.0bioyzs.mongodb.net/?retryWrites=true&w=majority';
+//   const uri =
+//     'mongodb+srv://tianyu:1234@cluster0.0bioyzs.mongodb.net/?retryWrites=true&w=majority';
 
-  const client = new MongoClient(uri);
+//   const client = new MongoClient(uri);
 
-  try {
-    // Connect to the MongoDB cluster
-    await client.connect();
+//   try {
+//     // Connect to the MongoDB cluster
+//     await client.connect();
 
-    console.log('Successfully connected to the database');
-  } catch (e) {
-    console.log('Could not connect to the database. Error...', e);
-  } finally {
-    await client.close();
-  }
-}
+//     console.log('Successfully connected to the database');
+//   } catch (e) {
+//     console.log('Could not connect to the database. Error...', e);
+//   } finally {
+//     await client.close();
+//   }
+// }
 
-main().catch(console.error);
+// main().catch(console.error);
 
 //use middleware
 const app = express();
@@ -38,7 +41,7 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static('public'));
+app.use(express.static('./public'));
 
 app.get('/ping', (req, res) => res.json({ message: 'Server is running!' }));
 
@@ -46,7 +49,7 @@ app.listen(port, () =>
   console.log(`Server running on ${port}, http://localhost:${port}`)
 );
 
-//app.use('/api', apiRoute);
+app.use('/', router);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
