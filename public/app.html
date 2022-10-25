@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="app.css" />
+    <title>&#10073; Logistic Application</title>
+  </head>
+
+  <body>
+    <h1 class="centering">
+      <span id="h1-symbol">&#10073;&nbsp;</span>Logistic Application
+    </h1>
+
+    <div id="buttons-wrapper" class="centering">
+      <button
+        type="button"
+        class="buttons"
+        onclick="addData()"
+        title="Add new row to the table from the text inputs"
+      >
+        Add
+      </button>
+      <span class="gap-1"></span>
+      <button
+        type="button"
+        class="buttons"
+        onclick="deleteData()"
+        title="Delete selected row"
+      >
+        Delete
+      </button>
+      <span class="gap-1"></span>
+      <button
+        type="button"
+        class="buttons"
+        onclick="clearData()"
+        title="Clear selection and text inputs"
+      >
+        Clear
+      </button>
+    </div>
+
+    <br />
+
+    <div id="inputs-wrapper" class="centering">
+      <label for="name" class="labels">Name:</label>
+      <input
+        type="text"
+        id="name"
+        class="textinput gap-2"
+        placeholder="Enter name (required)"
+      />
+      <span class="gap-1"></span>
+      <label for="trackingid" class="labels">Reference Number:</label>
+      <input
+        type="text"
+        id="trackingid"
+        class="textinput gap-2"
+        placeholder="Enter Reference # (required)"
+      />
+    </div>
+
+    <br />
+
+    <div id="grid-container">
+      <div id="table-wrapper">
+        <table id="data-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Reference Number</th>
+              <th>Bill of Landing</th>
+              <th class="tradio">Select</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div id="table-btn-wrapper">
+        <span
+          class="table-btn"
+          onclick="selectTopOrBottomRow(1)"
+          title="Select first row (of the table)"
+          >&#708;</span
+        >
+        <span
+          class="table-btn"
+          onclick="selectTopOrBottomRow(0)"
+          title="Select last row (of the table)"
+          >&#709;</span
+        >
+      </div>
+    </div>
+
+    <br /><br />
+
+    <div id="status-label" class="labels">
+      Status: <span id="status" class="gap-2"></span>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
