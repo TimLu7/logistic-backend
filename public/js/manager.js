@@ -22,40 +22,43 @@ window.onload = () => {
  * The response from the fetch has the data.
  */
 function loadData() {
-  fetch(getURL)
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return res.text().then((text) => {
-          throw new Error(text);
-        });
-      }
-    })
-    .then((docs) => {
-      buildTable(docs);
-      return docs.length;
-    })
-    .then((n) => {
-      document.getElementById('status').innerHTML = 'Loaded ' + n + ' row(s)!';
-      if (n > 0) {
-        selectRow();
-        scrollToSelection();
-      }
-    })
-    .catch((error) => {
-      console.error('# Error:', error);
-      const msg =
-        'Error: ' +
-        error.message +
-        '. ' +
-        'The web server or database may not have started. ' +
-        "See browser's console for more details.";
-      document.getElementById('status').innerHTML = msg;
-    });
+  fetch(getURL,{redirect: 'follow'})
+  .then((res) => {
+    console.log(res);
+    if(res.redirected){
+      window.location.href=res.url;
+    }else if (res.ok) {
+      return res.json();
+    } else {
+      return res.text().then((text) => {
+        throw new Error(text);
+      });
+    }
+  })
+  .then((docs) => {
+    buildTable(docs);
+    return docs.length;
+  })
+  .then((n) => {
+    document.getElementById('status').innerHTML = 'Loaded ' + n + ' row(s)!';
+    if (n > 0) {
+      selectRow();
+      scrollToSelection();
+    }
+  }).catch((error) => {
+    console.error(error);
+    const msg =
+      'Error: ' +
+      error.message +
+      '. ' +
+      'The web server or database may not have started. ' +
+      "See browser's console for more details.";
+    document.getElementById('status').innerHTML = msg;
+  });
 }
 
 function buildTable(data) {
+  console.log(data);
   data.forEach((doc) => addToTable(doc));
 }
 
@@ -147,7 +150,9 @@ function postToDB(doc) {
     body: JSON.stringify(doc),
   })
     .then((res) => {
-      if (res.ok) {
+      if(res.redirected){
+        window.location.href=res.url;
+      }else if (res.ok) {
         return res.json();
       } else {
         return res.text().then((text) => {
@@ -199,7 +204,9 @@ function deleteData() {
 function deleteFromDB(id) {
   fetch(deleteURL + id, { method: 'DELETE' })
     .then((res) => {
-      if (res.ok) {
+      if(res.redirected){
+        window.location.href=res.url;
+      }else if (res.ok) {
         return res.json();
       } else {
         return res.text().then((text) => {
@@ -241,8 +248,11 @@ function initValues() {
  * Routine to clear the selected row in the HTML table as well as the input fields.
  */
 function clearData() {
+  console.log(selectedRowIx);
+  console.log(table.rows[selectedRowIx]);
   if (selectedRowIx) {
-    table.rows[selectedRowIx].cells.item(2).firstChild.checked = false;
+    console.log(table.rows[selectedRowIx].cells.item(3));
+    table.rows[selectedRowIx].cells.item(3).firstChild.checked = false;
     table.rows[selectedRowIx].style.backgroundColor = rowClearColor;
   }
 
