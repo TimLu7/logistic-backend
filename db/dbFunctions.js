@@ -28,5 +28,8 @@ module.exports = {
   },
   addUser:async(user)=>{
     return await db.collection(collUser).insertOne(user);
+  },
+  findByName:async(name)=>{
+    return await db.collection(coll).find({name:name}).toArray();
   }
 };
