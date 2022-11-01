@@ -1,9 +1,12 @@
 const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
+require('dotenv').config();
 const dbName = 'logistic_system';
 const coll = 'items';
 const collUser = 'users';
-const url = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017';
+// const url = process.env.MANGO_URI || 'mongodb://127.0.0.1:27017';
+const url = process.env.MANGO_URI;
+console.log(process.env.MANGO_URI);
 const client = new MongoClient(url);
 
 const db = client.db(dbName);
