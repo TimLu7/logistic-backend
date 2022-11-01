@@ -3,6 +3,7 @@ const rowClearColor = 'white';
 const getByNameURL = 'http://localhost:3000/api/getByName/';
 const uploadURL='http://localhost:3000/api/upload/';
 const downloadURL='http://localhost:3000/api/download';
+const logoutURL='http://localhost:3000/api/logout'
 
 let selectedRowIx;
 let prevSelection;
@@ -173,3 +174,22 @@ function buildTable(data) {
     });
   }
   
+  function logout(){
+    fetch(logoutURL,{redirect: 'follow'})
+    .then((res) => {
+      console.log(res);
+      if(res.redirected){
+        window.location.href=res.url;
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      const msg =
+        'Error: ' +
+        error.message +
+        '. ' +
+        'The web server or database may not have started. ' +
+        "See browser's console for more details.";
+      document.getElementById('status').innerHTML = msg;
+    });
+  }

@@ -119,3 +119,8 @@ table tr td:nth-child(5) {
   height:32px;
   cursor:pointer;
 }
+.logout{
+  cursor:pointer;
+  color:blue;
+  text-decoration:underline;
+}

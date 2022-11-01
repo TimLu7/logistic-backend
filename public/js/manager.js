@@ -4,6 +4,7 @@ const getURL = 'http://localhost:3000/api/allnames/';
 const postURL = 'http://localhost:3000/api/addname/';
 const deleteURL = 'http://localhost:3000/api/deletename/';
 const downloadURL='http://localhost:3000/api/download';
+const logoutURL='http://localhost:3000/api/logout'
 
 let selectedRowIx;
 let prevSelection;
@@ -311,6 +312,26 @@ function download(path){
     const msg =
       'Error: ' +
       error.message 
+    document.getElementById('status').innerHTML = msg;
+  });
+}
+
+function logout(){
+  fetch(logoutURL,{redirect: 'follow'})
+  .then((res) => {
+    console.log(res);
+    if(res.redirected){
+      window.location.href=res.url;
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+    const msg =
+      'Error: ' +
+      error.message +
+      '. ' +
+      'The web server or database may not have started. ' +
+      "See browser's console for more details.";
     document.getElementById('status').innerHTML = msg;
   });
 }

@@ -176,4 +176,10 @@ router.get('/api/download',(req, res) => {
   res.download(uploadDir+fileName);
 })
 
+router.get('/api/logout',(req, res) => {
+  req.session.user = null;
+  req.session.login = false;
+  res.redirect("/?msg=log out succeed");
+})
+
 module.exports = router;
