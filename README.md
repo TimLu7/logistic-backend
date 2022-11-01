@@ -25,7 +25,7 @@ https://logistic-backend-five.vercel.app/
 - Install dependencies: `npm install`
 - Open MongoDB Compass and connect to: `localhost:27017`
 - Run Node server: `npm start`
-- Open `http://localhost:3000/` on your browser to check the web application
+- Open `http://localhost:5000/` on your browser to check the web application
 
 # Screenshots
 
