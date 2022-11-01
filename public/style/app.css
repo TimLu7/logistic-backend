@@ -109,3 +109,13 @@ table tr td:nth-child(5) {
 #status-label {
   margin-left: 15%;
 }
+
+.uploadForm{
+  text-align: center;
+  padding-bottom: 10px;
+}
+.download-icon{
+  width:32px;
+  height:32px;
+  cursor:pointer;
+}
