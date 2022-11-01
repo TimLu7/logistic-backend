@@ -16,17 +16,40 @@ Drivers can view their delivery assignments and click finish when their job is d
 
 # Check It Out
 
+https://logistic-backend-five.vercel.app/
+
 # Install, Build & Run
 
-- Install [Node](https://nodejs.org) and [npm](https://www.npmjs.com) on your machine
+- Install [Node](https://nodejs.org), [npm](https://www.npmjs.com), and [MongoDB](https://www.mongodb.com/) on your machine
 - Clone the repository: `git clone https://github.com/TimLu7/logistic-backend.git`
 - Install dependencies: `npm install`
+- Open MongoDB Compass and connect to: `localhost:27017`
 - Run Node server: `npm start`
-- Open `http://localhost:3000/` on your browser to see the web application
+- Open `http://localhost:3000/` on your browser to check the web application
 
 # Screenshots
+
+1. Login Page
+
+   ![screen shot1](screenshots/login.PNG)
+
+2. Register Page
+
+   ![screen shot1](screenshots/register.PNG)
+
+3. Driver Page
+
+   ![screen shot1](screenshots/driver.PNG)
+
+4. Manager Page
+
+   ![screen shot1](screenshots/Manager.PNG)
 
 # Author
 
 Tianyu Lu
 Yunxiao Li
+
+# Class link
+
+https://johnguerra.co/classes/webDevelopment_fall_2022/

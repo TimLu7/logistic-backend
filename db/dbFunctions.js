@@ -3,7 +3,7 @@ const { ObjectId } = require('mongodb');
 const dbName = 'logistic_system';
 const coll = 'items';
 const collUser = 'users';
-const url = process.env.MOGO_URL || "mongodb://127.0.0.1:27017";
+const url = process.env.MANGO_URL || "mongodb://127.0.0.1:27017";
 const client = new MongoClient(url);
 
 const db = client.db(dbName);
