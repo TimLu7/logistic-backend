@@ -3,11 +3,21 @@ const rowClearColor = 'white';
 const getURL = 'http://localhost:3000/api/allnames/';
 const postURL = 'http://localhost:3000/api/addname/';
 const deleteURL = 'http://localhost:3000/api/deletename/';
+const downloadURL='http://localhost:3000/api/download';
 
 let selectedRowIx;
 let prevSelection;
 let table;
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
 
+function checkMsg(){
+  let msg=urlParams.get("msg");
+  if(msg){
+      alert(msg);
+  }
+}
+checkMsg();
 /* Functions */
 
 window.onload = () => {
@@ -74,7 +84,9 @@ function addToTable(doc) {
   cell1.innerHTML = doc.name;
   cell2.innerHTML = doc.trackingid;
 
-  cell3.innerHTML = doc.bol;
+  if(doc.bol&&doc.bol!=""){
+    cell3.innerHTML="<img src='./style/images/download.png' class='download-icon' onclick='download(\""+doc.bol+"\")'/>";
+  }
   cell4.innerHTML = "<input type='hidden' value=" + doc._id + '>';
   cell5.innerHTML =
     "<input type='radio' name='select' onclick='selectRow(this)' checked>";
@@ -278,4 +290,27 @@ function selectTopOrBottomRow(n) {
   document.getElementById('status').innerHTML = 'Selected row ' + selectedRowIx;
   row.cells[2].children[0].checked = true;
   scrollToSelection();
+}
+
+function download(path){
+  console.log(path);
+  fetch(downloadURL+"?fileName="+path)
+  .then(res => res.blob())
+  .then(blob => {
+      const url = URL.createObjectURL(blob);
+  
+      let a = document.createElement('a');
+      a.download = path;
+      a.href = url;
+      document.body.appendChild(a);
+      a.click();
+      a.remove(); // document.body.removeChild(a)
+  })
+  .catch((error) => {
+    console.error(error);
+    const msg =
+      'Error: ' +
+      error.message 
+    document.getElementById('status').innerHTML = msg;
+  });
 }

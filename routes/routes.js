@@ -8,6 +8,8 @@ const PORT = process.env.PORT || 3000;
 const router = express.Router();
 const dbFunctions = require('../db/dbFunctions');
 const crypto = require('crypto');
+const uploadDir="./upload/";
+const fs=require('fs');
 // console.log(crypto.randomUUID());
 // The route definitions for get, post and delete
 
@@ -84,7 +86,6 @@ router.delete('/api/deletename/:id', async (req, res) => {
   }
   const id = req.params.id;
   // console.log(id);
-  console.log(ObjectId.isValid(id));
   let respObj = {};
 
   if (id && ObjectId.isValid(id)) {
@@ -118,12 +119,18 @@ router.get('/api/getByName', async (req, res) => {
   }
 });
 
-router.post('/api/upload', async (req, res) => {
+//upload method
+router.post('/api/upload/:id', async (req, res) => {
   if (!req.session.login) {
     res.redirect("/?msg=login needed");
     return;
   }
-  console.log(req.files);
+  const id = req.params.id;
+  if(!id||!ObjectId.isValid(id)){
+    res.redirect("/driver.html?msg=invaild item id");
+  }
+
+  // console.log(req.files);
   if (!req.files) {
     return res.status(400).send("No files were uploaded.");
   }
@@ -133,15 +140,40 @@ router.post('/api/upload', async (req, res) => {
   if(startIndex != -1){
     type=file.name.substring(startIndex, file.name.length).toLowerCase();
   }
-  const path="./public/upload/"+crypto.randomUUID()+type;
-
+  const newFileName=crypto.randomUUID()+type;
+  const path=uploadDir+newFileName;
   file.mv(path, (err) => {
     if (err) {
       return res.status(500).send(err);
     }
-    return res.send({ status: "success", path: path });
   });
+  let existFile=null;
+  try {
+    existFile=(await dbFunctions.findItemById(id)).bol;
+    // console.log("existFile:"+existFile);
+    //replace current file
+    if(existFile&&existFile!=""){
+      fs.unlink(uploadDir+existFile, (err => {
+        if (err){console.log(err)} 
+        else {
+          console.log("\nDeleted file: "+uploadDir+existFile);
+        }
+      }));
+    }
+    await dbFunctions.updateItemById(id,{bol:newFileName});
+  } catch (err) {
+    console.error('# update Error', err);
+    res.status(500).send({ error: err.name + ', ' + err.message });
+    return;
+  }
+  res.redirect("/driver.html?msg=upload succeed");
+
 })
 
+//download file
+router.get('/api/download',(req, res) => {
+  const fileName = req.query.fileName;
+  res.download(uploadDir+fileName);
+})
 
 module.exports = router;

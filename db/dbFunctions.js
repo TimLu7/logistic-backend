@@ -31,5 +31,13 @@ module.exports = {
   },
   findByName:async(name)=>{
     return await db.collection(coll).find({name:name}).toArray();
+  },
+  findItemById:async(id)=>{
+    return await db.collection(coll).findOne({
+      _id:ObjectId(id)
+    });
+  },
+  updateItemById:async(id,item)=>{
+    return await db.collection(coll).updateOne({_id:ObjectId(id)},{$set:item});
   }
 };

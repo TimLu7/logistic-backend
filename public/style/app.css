@@ -114,3 +114,8 @@ table tr td:nth-child(5) {
   text-align: center;
   padding-bottom: 10px;
 }
+.download-icon{
+  width:32px;
+  height:32px;
+  cursor:pointer;
+}
