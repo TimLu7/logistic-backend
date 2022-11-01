@@ -43,7 +43,7 @@ https://intense-lowlands-69751.herokuapp.com/
 
 4. Manager Page
 
-   ![screen shot1](screenshots/Manager.PNG)
+   ![screen shot1](screenshots/manager.PNG)
 
 # Author
 
