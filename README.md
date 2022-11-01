@@ -16,7 +16,7 @@ Drivers can view their delivery assignments and click finish when their job is d
 
 # Check It Out
 
-https://logistic-backend-five.vercel.app/
+https://intense-lowlands-69751.herokuapp.com/
 
 # Install, Build & Run
 
