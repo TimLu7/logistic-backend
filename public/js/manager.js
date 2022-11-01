@@ -1,9 +1,9 @@
 const rowSelectColor = '#F5F5F5';
 const rowClearColor = 'white';
-const getURL = 'http://localhost:3000/api/allnames/';
-const postURL = 'http://localhost:3000/api/addname/';
-const deleteURL = 'http://localhost:3000/api/deletename/';
-const downloadURL='http://localhost:3000/api/download';
+const getURL = '/api/allnames/';
+const postURL = '/api/addname/';
+const deleteURL = '/api/deletename/';
+const downloadURL = '/api/download';
 
 let selectedRowIx;
 let prevSelection;
@@ -11,10 +11,10 @@ let table;
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 
-function checkMsg(){
-  let msg=urlParams.get("msg");
-  if(msg){
-      alert(msg);
+function checkMsg() {
+  let msg = urlParams.get('msg');
+  if (msg) {
+    alert(msg);
   }
 }
 checkMsg();
@@ -32,39 +32,40 @@ window.onload = () => {
  * The response from the fetch has the data.
  */
 function loadData() {
-  fetch(getURL,{redirect: 'follow'})
-  .then((res) => {
-    console.log(res);
-    if(res.redirected){
-      window.location.href=res.url;
-    }else if (res.ok) {
-      return res.json();
-    } else {
-      return res.text().then((text) => {
-        throw new Error(text);
-      });
-    }
-  })
-  .then((docs) => {
-    buildTable(docs);
-    return docs.length;
-  })
-  .then((n) => {
-    document.getElementById('status').innerHTML = 'Loaded ' + n + ' row(s)!';
-    if (n > 0) {
-      selectRow();
-      scrollToSelection();
-    }
-  }).catch((error) => {
-    console.error(error);
-    const msg =
-      'Error: ' +
-      error.message +
-      '. ' +
-      'The web server or database may not have started. ' +
-      "See browser's console for more details.";
-    document.getElementById('status').innerHTML = msg;
-  });
+  fetch(getURL, { redirect: 'follow' })
+    .then((res) => {
+      console.log(res);
+      if (res.redirected) {
+        window.location.href = res.url;
+      } else if (res.ok) {
+        return res.json();
+      } else {
+        return res.text().then((text) => {
+          throw new Error(text);
+        });
+      }
+    })
+    .then((docs) => {
+      buildTable(docs);
+      return docs.length;
+    })
+    .then((n) => {
+      document.getElementById('status').innerHTML = 'Loaded ' + n + ' row(s)!';
+      if (n > 0) {
+        selectRow();
+        scrollToSelection();
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      const msg =
+        'Error: ' +
+        error.message +
+        '. ' +
+        'The web server or database may not have started. ' +
+        "See browser's console for more details.";
+      document.getElementById('status').innerHTML = msg;
+    });
 }
 
 function buildTable(data) {
@@ -84,8 +85,11 @@ function addToTable(doc) {
   cell1.innerHTML = doc.name;
   cell2.innerHTML = doc.trackingid;
 
-  if(doc.bol&&doc.bol!=""){
-    cell3.innerHTML="<img src='./style/images/download.png' class='download-icon' onclick='download(\""+doc.bol+"\")'/>";
+  if (doc.bol && doc.bol != '') {
+    cell3.innerHTML =
+      "<img src='./style/images/download.png' class='download-icon' onclick='download(\"" +
+      doc.bol +
+      '")\'/>';
   }
   cell4.innerHTML = "<input type='hidden' value=" + doc._id + '>';
   cell5.innerHTML =
@@ -162,9 +166,9 @@ function postToDB(doc) {
     body: JSON.stringify(doc),
   })
     .then((res) => {
-      if(res.redirected){
-        window.location.href=res.url;
-      }else if (res.ok) {
+      if (res.redirected) {
+        window.location.href = res.url;
+      } else if (res.ok) {
         return res.json();
       } else {
         return res.text().then((text) => {
@@ -216,9 +220,9 @@ function deleteData() {
 function deleteFromDB(id) {
   fetch(deleteURL + id, { method: 'DELETE' })
     .then((res) => {
-      if(res.redirected){
-        window.location.href=res.url;
-      }else if (res.ok) {
+      if (res.redirected) {
+        window.location.href = res.url;
+      } else if (res.ok) {
         return res.json();
       } else {
         return res.text().then((text) => {
@@ -292,25 +296,23 @@ function selectTopOrBottomRow(n) {
   scrollToSelection();
 }
 
-function download(path){
+function download(path) {
   console.log(path);
-  fetch(downloadURL+"?fileName="+path)
-  .then(res => res.blob())
-  .then(blob => {
+  fetch(downloadURL + '?fileName=' + path)
+    .then((res) => res.blob())
+    .then((blob) => {
       const url = URL.createObjectURL(blob);
-  
+
       let a = document.createElement('a');
       a.download = path;
       a.href = url;
       document.body.appendChild(a);
       a.click();
       a.remove(); // document.body.removeChild(a)
-  })
-  .catch((error) => {
-    console.error(error);
-    const msg =
-      'Error: ' +
-      error.message 
-    document.getElementById('status').innerHTML = msg;
-  });
+    })
+    .catch((error) => {
+      console.error(error);
+      const msg = 'Error: ' + error.message;
+      document.getElementById('status').innerHTML = msg;
+    });
 }
