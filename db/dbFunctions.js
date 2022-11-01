@@ -6,7 +6,7 @@ const coll = 'items';
 const collUser = 'users';
 // const url = process.env.MANGO_URI || 'mongodb://127.0.0.1:27017';
 const url = process.env.MANGO_URI;
-console.log(process.env.MANGO_URI);
+
 const client = new MongoClient(url);
 
 const db = client.db(dbName);

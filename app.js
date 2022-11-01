@@ -5,6 +5,7 @@ const router = require('./routes/routes');
 const session = require('express-session');
 const fileUpload = require('express-fileupload');
 const busboy = require('connect-busboy');
+require('dotenv').config();
 
 const PORT = process.env.PORT || 3000;
 
