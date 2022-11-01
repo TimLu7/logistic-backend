@@ -28,5 +28,5 @@ Drivers can view their delivery assignments and click finish when their job is d
 
 # Author
 
-Tianyu Lu
+Tianyu Lu &&
 Yunxiao Li
