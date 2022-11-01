@@ -1,53 +1,70 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href=".\style\app.css" />
     <title>&#10073; Driver Page</title>
-</head>
+  </head>
 
-<body>
+  <body>
+    <div>
+      <a href="index.html" id="LogoutAction">Logout</a>
+    </div>
+
     <h1 class="centering">
-        <span id="h1-symbol">&#10073;&nbsp;</span>Driver Page
+      <span id="h1-symbol">&#10073;&nbsp;</span>Driver Page
     </h1>
     <br />
-    <form action="" class="uploadForm" id="upload-form" method="post" enctype="multipart/form-data" onsubmit="return checkUploadForm()">
-        <input type="file" id="myFile" name="myFile" class="buttons">
-        <input type="submit" class="buttons">
+    <form
+      action=""
+      class="uploadForm"
+      id="upload-form"
+      method="post"
+      enctype="multipart/form-data"
+      onsubmit="return checkUploadForm()"
+    >
+      <input type="file" id="myFile" name="myFile" class="buttons" />
+      <input type="submit" class="buttons" />
     </form>
     <div id="grid-container">
-        <div id="table-wrapper">
-            <table id="data-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Reference Number</th>
-                        <th>Bill of Landing</th>
-                        <th>Upload</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
+      <div id="table-wrapper">
+        <table id="data-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Reference Number</th>
+              <th>Bill of Landing</th>
+              <th>Upload</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
 
-        <div id="table-btn-wrapper">
-            <span class="table-btn" onclick="selectTopOrBottomRow(1)"
-                title="Select first row (of the table)">&#708;</span>
-            <span class="table-btn" onclick="selectTopOrBottomRow(0)"
-                title="Select last row (of the table)">&#709;</span>
-        </div>
+      <div id="table-btn-wrapper">
+        <span
+          class="table-btn"
+          onclick="selectTopOrBottomRow(1)"
+          title="Select first row (of the table)"
+          >&#708;</span
+        >
+        <span
+          class="table-btn"
+          onclick="selectTopOrBottomRow(0)"
+          title="Select last row (of the table)"
+          >&#709;</span
+        >
+      </div>
     </div>
 
     <br /><br />
 
     <div id="status-label" class="labels">
-        Status: <span id="status" class="gap-2"></span>
+      Status: <span id="status" class="gap-2"></span>
     </div>
 
     <script src=".\js\driver.js"></script>
-</body>
-
+  </body>
 </html>

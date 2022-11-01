@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const { ObjectId } = require('mongodb');
-const router=require('./routes/routes');
-const session=require('express-session');
+const router = require('./routes/routes');
+const session = require('express-session');
 const fileUpload = require('express-fileupload');
 const busboy = require('connect-busboy');
 
@@ -14,14 +14,18 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(busboy());
-app.use(session({
-  secret:'catcatcat',
-  resave:false,
-  saveUninitialized:true
-}));
-app.use(fileUpload({
-  createParentPath: true,
-}));
+app.use(
+  session({
+    secret: 'catcatcat',
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use(
+  fileUpload({
+    createParentPath: true,
+  })
+);
 app.use(router);
 
 app.listen(PORT, () => {
